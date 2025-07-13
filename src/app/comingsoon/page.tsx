@@ -12,7 +12,7 @@ export default function ComingSoonPage() {
         <div className="container mx-auto px-6 max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Coming Soon!</h1>
           <p className="text-lg text-gray-600 mb-8">
-            We're hard at work creating something amazing for you. Stay tuned!
+            We are hard at work creating something amazing for you. Stay tuned!
           </p>
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
             <Link href="/" className="cta-button cta-button-primary">Back to Homepage</Link>

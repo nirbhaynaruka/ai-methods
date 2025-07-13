@@ -61,7 +61,7 @@ Premium Prompt:`;
       const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
       setOutput(text || "Failed to generate prompt. Please try again.");
-    } catch (e) {
+    } catch {
       setOutput("Error generating response.");
     } finally {
       setLoading(false);

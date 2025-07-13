@@ -60,7 +60,7 @@ Suggestions:`;
       const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
       setOutput(text || "No suggestions returned. Try again.");
-    } catch (e) {
+    } catch {
       setOutput("Error generating response.");
     } finally {
       setLoading(false);

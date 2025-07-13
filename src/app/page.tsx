@@ -97,7 +97,7 @@ export default function Home() {
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto mb-8">
               Describe your role or a key business challenge, and let our AI suggest how specialized
-              prompts and AiMethods' solutions can streamline your workflow and drive results.
+              prompts and AiMethods solutions can streamline your workflow and drive results.
             </p>
 <AiAdvantage />
 

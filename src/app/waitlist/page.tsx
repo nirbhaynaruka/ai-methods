@@ -38,14 +38,17 @@ export default function WaitlistPage() {
       if (response.ok) {
         setMessage({ text: 'Thank you for joining our waitlist! We will be in touch soon.', success: true })
         setForm({ name: '', email: '', interest: '', price_feedback: '' })
-      } else {
+      } 
+             else {
         const errorData = await response.json()
-        const errorText = errorData?.errors?.map((err: any) => err.message).join(', ') || 'Submission failed.'
+        const errorText = errorData?.errors?.map((err: { message: string }) => err.message).join(', ') || 'Submission failed.'
         setMessage({ text: errorText, success: false })
       }
-    } catch (err) {
+    } catch {
       setMessage({ text: 'Network error. Please try again.', success: false })
-    } finally {
+    }
+
+      finally {
       setSubmitting(false)
     }
   }

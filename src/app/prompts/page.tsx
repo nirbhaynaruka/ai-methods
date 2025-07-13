@@ -7,12 +7,38 @@ import { Footer } from "@/components/Footer";
 import Link from "next/link";
 import PremiumPromptGenerator from "@/components/PremiumPromptGenerator";
 
-// import "@/styles/prompts.css";
+// ===== TYPES =====
+type ChecklistItem = {
+  criterion: string;
+  description: string;
+  techniques: string[];
+};
 
+type Technique = {
+  description: string;
+  benefit: string;
+};
+
+type TechniquesMap = {
+  [name: string]: Technique;
+};
+
+type PromptItem = {
+  content: string;
+  value: string;
+  category: string;
+  techniques: string[];
+};
+
+type PromptMap = {
+  [title: string]: PromptItem;
+};
+
+// ===== COMPONENT =====
 export default function PromptsPage() {
-  const [checklist, setChecklist] = useState([]);
-  const [techniques, setTechniques] = useState({});
-  const [prompts, setPrompts] = useState({});
+  const [checklist, setChecklist] = useState<ChecklistItem[]>([]);
+  const [techniques, setTechniques] = useState<TechniquesMap>({});
+  const [prompts, setPrompts] = useState<PromptMap>({});
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
   const [selectedPrompt, setSelectedPrompt] = useState<string | null>(null);
 
@@ -29,6 +55,8 @@ export default function PromptsPage() {
   return (
     <div className="bg-[#F8F7F4] text-gray-900">
       <Header />
+
+      {/* Nav */}
       <nav className="bg-white/80 backdrop-blur-md top-[68px] z-40 shadow-sm border-b border-gray-200 sticky">
         <div className="container mx-auto px-6 py-3 flex centerflex justify-center md:justify-start space-x-6 md:space-x-8 text-gray-700">
           <a href="#hero" className="nav-link-product font-semibold text-blue-600">Prompts Overview</a>
@@ -40,6 +68,7 @@ export default function PromptsPage() {
         </div>
       </nav>
 
+      {/* Hero */}
       <section id="hero" className="py-20 text-center bg-white">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-6xl font-bold">Architecting Your Premium AI Prompts</h1>
@@ -51,11 +80,12 @@ export default function PromptsPage() {
         </div>
       </section>
 
+      {/* Value */}
       <section id="value" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">The Anatomy of a Premium Prompt</h2>
           <div className="max-w-4xl mx-auto space-y-4">
-            {checklist.map((item: any, i: number) => (
+            {checklist.map((item, i) => (
               <div key={i} className="bg-white rounded-lg shadow">
                 <details className="p-4">
                   <summary className="cursor-pointer font-semibold">{item.criterion}</summary>
@@ -70,9 +100,10 @@ export default function PromptsPage() {
         </div>
       </section>
 
+      {/* Toolkit */}
       <section id="toolkit" className="py-20 bg-white">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">The Prompt Architect's Toolkit</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">The Prompt Architect Toolkit</h2>
           <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
             <div className="md:w-1/3 space-y-2">
               {Object.keys(techniques).map((key) => (
@@ -101,6 +132,7 @@ export default function PromptsPage() {
         </div>
       </section>
 
+      {/* Prompt Library */}
       <section id="library" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">Premium Prompt Library</h2>
@@ -126,7 +158,7 @@ export default function PromptsPage() {
               <p className="text-gray-700 mt-2 mb-4">{prompts[selectedPrompt].value}</p>
               <div className="mb-4">
                 <strong>Techniques:</strong>
-                {prompts[selectedPrompt].techniques.map((tech: string) => (
+                {prompts[selectedPrompt].techniques.map((tech) => (
                   <span
                     key={tech}
                     className="ml-2 inline-block bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full"
@@ -143,6 +175,8 @@ export default function PromptsPage() {
           )}
         </div>
       </section>
+
+      {/* CTA */}
       <section className="py-20 bg-gray-50 text-center">
         <div className="container mx-auto px-6 max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
@@ -157,16 +191,17 @@ export default function PromptsPage() {
           </Link>
         </div>
       </section>
-      <section className="py-20 md:py-32 text-center bg-white">
-  <div className="container mx-auto px-6">
-    <h1 className="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
-      ✨ Try a Premium Prompt ✨
-    </h1>
-    <p className="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+
+      {/* Premium Prompt Generator */}
+      <section id="sparkle-prompt" className="py-20 md:py-32 text-center bg-white">
+        <div className="container mx-auto px-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-800 leading-tight">
+            ✨ Try a Premium Prompt ✨
+          </h1>
+          <p className="mt-4 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             See the power of a meticulously crafted prompt! Enter a basic idea, and our AI will transform it into a professional, high-value prompt using the techniques outlined in our toolkit.
-    </p>
-    <PremiumPromptGenerator />
- 
+          </p>
+          <PremiumPromptGenerator />
         </div>
       </section>
 
