@@ -5,13 +5,6 @@
   --foreground: #171717;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -23,4 +16,39 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Prompt-specific custom classes */
+.nav-link-product {
+  @apply text-sm font-medium transition-colors hover:text-blue-600;
+}
+
+.tab-btn {
+  @apply transition-colors duration-200;
+}
+
+.tech-btn {
+  @apply transition-all duration-200;
+}
+
+.code-block {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+.cta-button {
+  @apply inline-block font-semibold text-center transition-all duration-300 rounded-full px-6 py-3 shadow;
+}
+
+.cta-button-primary {
+  @apply bg-blue-600 text-white border-2 border-transparent hover:bg-blue-700 hover:shadow-lg;
+}
+
+.cta-button-secondary {
+  @apply bg-transparent text-blue-600 border-2 border-blue-600 hover:bg-blue-100 hover:text-blue-700;
+}
+#advantageLoading.hidden,
+#advantageDisplay.hidden {
+  display: none !important;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
 }

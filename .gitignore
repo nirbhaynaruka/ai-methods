@@ -39,3 +39,19 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# Next.js
+.next/
+out/
+node_modules/
+*.log
+
+# Env + Firebase Keys
+.env.local
+.env
+firebase-debug.log
+firebase.json
+
+# OS/Editor stuff
+.DS_Store
+.vscode/
+.idea/
