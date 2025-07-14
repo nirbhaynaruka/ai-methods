@@ -1,11 +1,10 @@
-// File: src/app/prompts/page.tsx
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
-import Link from "next/link";
-import PremiumPromptGenerator from "@/components/PremiumPromptGenerator";
+import { useEffect, useState } from 'react';
+import { Header } from '@/components/Header';
+import { Footer } from '@/components/Footer';
+import Link from 'next/link';
+import PremiumPromptGenerator from '@/components/PremiumPromptGenerator';
 
 // ===== TYPES =====
 type ChecklistItem = {
@@ -41,9 +40,10 @@ export default function PromptsPage() {
   const [prompts, setPrompts] = useState<PromptMap>({});
   const [selectedTech, setSelectedTech] = useState<string | null>(null);
   const [selectedPrompt, setSelectedPrompt] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string>('hero');
 
   useEffect(() => {
-    import("@/data/promptsData").then((mod) => {
+    import('@/data/promptsData').then((mod) => {
       setChecklist(mod.checklistData);
       setTechniques(mod.techData);
       setPrompts(mod.promptData);
@@ -52,19 +52,53 @@ export default function PromptsPage() {
     });
   }, []);
 
+  useEffect(() => {
+    const sectionIds = ['hero', 'value', 'toolkit', 'library', 'sparkle-prompt', 'strategy'];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+            break;
+          }
+        }
+      },
+      { threshold: 0.4 }
+    );
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="bg-[#F8F8F8] text-[#0A0A0A]">
       <Header />
 
       {/* Nav */}
       <nav className="bg-[#FFFFFF]/80 backdrop-blur-md top-[68px] z-40 shadow-sm border-b border-[#E0E0E0] sticky">
-        <div className="container mx-auto px-6 py-3 flex justify-center md:justify-start space-x-6 md:space-x-8 text-[#666666]">
-          <a href="#hero" className="font-semibold text-[#0A0A0A] hover:text-[#555555]">Prompts Overview</a>
-          <a href="#value" className="hover:text-[#555555]">Value</a>
-          <a href="#toolkit" className="hover:text-[#555555]">Toolkit</a>
-          <a href="#library" className="hover:text-[#555555]">Library</a>
-          <a href="#sparkle-prompt" className="hover:text-[#555555]">Sparkle Prompt</a>
-          <a href="#strategy" className="hover:text-[#555555]">Strategy</a>
+        <div className="container mx-auto px-6 py-3 flex justify-center md:justify-start space-x-6 md:space-x-8 text-sm font-medium">
+          {[
+            { id: 'hero', label: 'Prompts Overview' },
+            { id: 'value', label: 'Value' },
+            { id: 'toolkit', label: 'Toolkit' },
+            { id: 'library', label: 'Library' },
+            { id: 'sparkle-prompt', label: 'Sparkle Prompt' },
+            { id: 'strategy', label: 'Strategy' },
+          ].map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={`hover:text-[#555555] transition-colors ${
+                activeSection === id ? 'text-[#0A0A0A] font-semibold' : 'text-[#666666]'
+              }`}
+            >
+              {label}
+            </a>
+          ))}
         </div>
       </nav>
 
@@ -85,15 +119,19 @@ export default function PromptsPage() {
       {/* Value */}
       <section id="value" className="py-20 bg-[#EFEFEF]">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#0A0A0A]">The Anatomy of a Premium Prompt</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#0A0A0A]">
+            The Anatomy of a Premium Prompt
+          </h2>
           <div className="max-w-4xl mx-auto space-y-4">
             {checklist.map((item, i) => (
               <div key={i} className="bg-[#FFFFFF] rounded-lg shadow border border-[#E0E0E0]">
                 <details className="p-4">
-                  <summary className="cursor-pointer font-semibold text-[#0A0A0A]">{item.criterion}</summary>
+                  <summary className="cursor-pointer font-semibold text-[#0A0A0A]">
+                    {item.criterion}
+                  </summary>
                   <p className="mt-2 text-sm text-[#666666]">{item.description}</p>
                   <div className="mt-2 text-sm text-[#333333]">
-                    <strong>Key Techniques:</strong> {item.techniques.join(", ")}
+                    <strong>Key Techniques:</strong> {item.techniques.join(', ')}
                   </div>
                 </details>
               </div>
@@ -105,7 +143,9 @@ export default function PromptsPage() {
       {/* Toolkit */}
       <section id="toolkit" className="py-20 bg-[#FFFFFF]">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#0A0A0A]">The Prompt Architect Toolkit</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#0A0A0A]">
+            The Prompt Architect Toolkit
+          </h2>
           <div className="flex flex-col md:flex-row gap-8 max-w-6xl mx-auto">
             <div className="md:w-1/3 space-y-2">
               {Object.keys(techniques).map((key) => (
@@ -114,8 +154,8 @@ export default function PromptsPage() {
                   onClick={() => setSelectedTech(key)}
                   className={`tech-btn w-full text-left p-3 rounded-md border ${
                     selectedTech === key
-                      ? "bg-[#AAAAAA] text-[#0A0A0A] font-semibold"
-                      : "bg-[#FFFFFF] text-[#333333]"
+                      ? 'bg-[#AAAAAA] text-[#0A0A0A] font-semibold'
+                      : 'bg-[#FFFFFF] text-[#333333]'
                   }`}
                 >
                   {key}
@@ -126,7 +166,9 @@ export default function PromptsPage() {
               {selectedTech && (
                 <div>
                   <h3 className="text-xl font-bold mb-2 text-[#0A0A0A]">{selectedTech}</h3>
-                  <p className="text-sm text-[#666666] mb-4">{techniques[selectedTech].description}</p>
+                  <p className="text-sm text-[#666666] mb-4">
+                    {techniques[selectedTech].description}
+                  </p>
                   <p className="text-sm font-semibold mb-1 text-[#0A0A0A]">Primary Benefit:</p>
                   <p className="text-sm text-[#333333]">{techniques[selectedTech].benefit}</p>
                 </div>
@@ -139,7 +181,9 @@ export default function PromptsPage() {
       {/* Prompt Library */}
       <section id="library" className="py-20 bg-[#EFEFEF]">
         <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#0A0A0A]">Premium Prompt Library</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#0A0A0A]">
+            Premium Prompt Library
+          </h2>
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             {Object.keys(prompts).map((key) => (
               <button
@@ -147,8 +191,8 @@ export default function PromptsPage() {
                 onClick={() => setSelectedPrompt(key)}
                 className={`tab-btn px-4 py-2 rounded-full border font-medium ${
                   selectedPrompt === key
-                    ? "bg-[#0A0A0A] text-white"
-                    : "border-[#CCCCCC] text-[#0A0A0A] hover:bg-[#E0E0E0]"
+                    ? 'bg-[#0A0A0A] text-white'
+                    : 'border-[#CCCCCC] text-[#0A0A0A] hover:bg-[#E0E0E0]'
                 }`}
               >
                 {key}
@@ -192,7 +236,10 @@ export default function PromptsPage() {
             Join our waitlist for exclusive updates on new prompt packages, early access
             opportunities, and provide your valuable input on our upcoming offerings!
           </p>
-          <Link href="/waitlist" className="bg-white text-[#0A0A0A] px-6 py-3 rounded-xl font-semibold shadow hover:bg-gray-200">
+          <Link
+            href="/waitlist"
+            className="bg-white text-[#0A0A0A] px-6 py-3 rounded-xl font-semibold shadow hover:bg-gray-200"
+          >
             Join Our Waitlist Today!
           </Link>
         </div>
@@ -205,7 +252,9 @@ export default function PromptsPage() {
             ✨ Try a Premium Prompt ✨
           </h1>
           <p className="mt-4 text-lg md:text-xl text-[#666666] max-w-3xl mx-auto">
-            See the power of a meticulously crafted prompt! Enter a basic idea, and our AI will transform it into a professional, high-value prompt using the techniques outlined in our toolkit.
+            See the power of a meticulously crafted prompt! Enter a basic idea, and our AI will
+            transform it into a professional, high-value prompt using the techniques outlined in
+            our toolkit.
           </p>
           <PremiumPromptGenerator />
         </div>

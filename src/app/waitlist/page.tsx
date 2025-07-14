@@ -55,9 +55,9 @@ export default function WaitlistPage() {
       <Header />
       <main className="py-20 bg-[#EFEFEF] min-h-[calc(100vh-120px)] flex items-center justify-center">
         <div className="container mx-auto px-6 max-w-2xl bg-white p-8 rounded-lg shadow-xl text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#0A0A0A] mb-4">Join Our Premium Prompts Waitlist</h1>
+          <h1 className="text-3xl md:text-4xl font-bold text-[#0A0A0A] mb-4">Join Our Waitlist</h1>
           <p className="text-lg text-[#666666] mb-8">
-            Be the first to know when our expertly crafted AI prompt packages launch!
+            Be the first to know when our AI Methods launch!
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-6 text-left">
@@ -87,7 +87,7 @@ export default function WaitlistPage() {
               />
             </div>
             <div>
-              <label htmlFor="interest" className="block text-sm font-semibold mb-2 text-[#0A0A0A]">How do you plan to use AI prompts?</label>
+              <label htmlFor="interest" className="block text-sm font-semibold mb-2 text-[#0A0A0A]">How do you plan to use AI Methods?</label>
               <textarea
                 id="interest"
                 name="interest"
