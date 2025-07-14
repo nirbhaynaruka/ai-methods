@@ -68,21 +68,21 @@ Suggestions:`;
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-gray-50 p-6 rounded-lg shadow-md">
+    <div className="max-w-3xl mx-auto bg-[#F8F8F8] p-6 rounded-lg shadow-md">
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="w-full p-4 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4 resize-y min-h-[100px] text-gray-700"
+        className="w-full p-4 rounded-md border border-[#CCCCCC] focus:ring-2 focus:ring-[#666666] focus:border-transparent mb-4 resize-y min-h-[100px] text-[#333333] placeholder-[#CCCCCC]"
         placeholder="e.g., I'm a marketing manager struggling with content ideas..."
       ></textarea>
       <button
         onClick={generate}
-        className="cta-button cta-button-primary w-full md:w-auto cursor-pointer"
+        className="bg-[#0A0A0A] text-white px-6 py-3 rounded-full font-semibold w-full md:w-auto hover:bg-[#555555] cursor-pointer"
       >
         {loading ? "Analyzing..." : "Suggest My AI Workflow"}
       </button>
       {output && (
-        <pre className="mt-6 text-left text-gray-700 bg-gray-100 whitespace-pre-wrap p-4 rounded-md">
+        <pre className="mt-6 text-left text-[#333333] bg-[#EFEFEF] whitespace-pre-wrap p-4 rounded-md">
           {output}
         </pre>
       )}

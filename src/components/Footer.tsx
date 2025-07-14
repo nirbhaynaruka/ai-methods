@@ -2,12 +2,9 @@
 
 import Link from 'next/link'
 
-
-
-
 export const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-gray-300 py-12 border-t border-gray-700">
+    <footer className="bg-[#0A0A0A] text-[#CCCCCC] py-12 border-t border-[#666666]">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 pb-8">
         <div className="col-span-full md:col-span-1 text-center md:text-left">
           <h3 className="text-2xl font-bold text-white mb-4">AiMethods</h3>
@@ -33,7 +30,7 @@ export const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="container mx-auto px-6 pt-8 border-t border-gray-700 text-center text-sm">
+      <div className="container mx-auto px-6 pt-8 border-t border-[#666666] text-center text-sm">
         &copy; 2025 AiMethods. All rights reserved.
       </div>
     </footer>

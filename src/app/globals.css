@@ -2,13 +2,13 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0A0A0A;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0A0A0A;
+    --foreground: #EFEFEF;
   }
 }
 
@@ -20,7 +20,7 @@ body {
 
 /* Prompt-specific custom classes */
 .nav-link-product {
-  @apply text-sm font-medium transition-colors hover:text-blue-600;
+  @apply text-sm font-medium transition-colors hover:text-[#CCCCCC]; /* Light gray hover */
 }
 
 .tab-btn {
@@ -34,17 +34,21 @@ body {
 .code-block {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
+
 .cta-button {
   @apply inline-block font-semibold text-center transition-all duration-300 rounded-full px-6 py-3 shadow;
 }
 
+/* Primary CTA: Deepest Black */
 .cta-button-primary {
-  @apply bg-blue-600 text-white border-2 border-transparent hover:bg-blue-700 hover:shadow-lg;
+  @apply bg-[#0A0A0A] text-white border-2 border-transparent hover:bg-[#555555] hover:shadow-lg;
 }
 
+/* Secondary CTA: White with black text */
 .cta-button-secondary {
-  @apply bg-transparent text-blue-600 border-2 border-blue-600 hover:bg-blue-100 hover:text-blue-700;
+  @apply bg-white text-[#0A0A0A] border-2 border-[#0A0A0A] hover:bg-gray-200;
 }
+
 #advantageLoading.hidden,
 #advantageDisplay.hidden {
   display: none !important;
