@@ -1,92 +1,59 @@
-// File: src/components/PremiumPromptGenerator.tsx
+// File: src/components/DemoLauncher.tsx
 "use client";
 
-import { useEffect, useState } from "react";
-import { remoteConfig } from "@/lib/firebaseClient";
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Image from 'next/image';
 
-export default function PremiumPromptGenerator() {
-  const [input, setInput] = useState("");
-  const [output, setOutput] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [apiKey, setApiKey] = useState("");
+export default function DemoLauncher() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
-    remoteConfig
-      .fetchAndActivate()
-      .then(() => {
-        const key = remoteConfig.getString("GEMINI_API_KEY");
-        setApiKey(key);
-      })
-      .catch((err) => {
-        console.error("Remote config fetch failed", err);
-      });
-  }, []);
+    setIsOpen(false);
+  }, [pathname]);
 
-  const generate = async () => {
-    if (!input.trim()) {
-      setOutput("Please enter a basic idea to generate a premium prompt.");
-      return;
-    }
-
-    if (!apiKey) {
-      setOutput("Gemini API key not loaded.");
-      return;
-    }
-
-    setLoading(true);
-    setOutput("");
-
-    const prompt = `You are an expert prompt engineer specializing in crafting highly effective, high-value prompts.
-A user has provided a basic idea for a prompt. Your task is to transform this basic idea into a concise, premium-grade prompt suitable for professional use. Focus on clarity, directness, and value. Avoid markdown characters (*, #) in the output. Structure the output into brief, direct paragraphs.
-
-Basic Idea: "${input}"
-
-Premium Prompt:`;
-
-    const payload = {
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-    };
-
-    try {
-      const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        }
-      );
-
-      const data = await res.json();
-      const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-      setOutput(text || "Failed to generate prompt. Please try again.");
-    } catch {
-      setOutput("Error generating response.");
-    } finally {
-      setLoading(false);
+  const handleLinkClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string,
+    href: string
+  ) => {
+    setIsOpen(false);
+    if (pathname === href.split("#")[0]) {
+      e.preventDefault();
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
   return (
-    <div className="max-w-3xl mx-auto bg-[#F8F8F8] p-6 rounded-lg shadow-md">
-      <textarea
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        className="w-full p-4 rounded-md border border-[#CCCCCC] focus:ring-2 focus:ring-[#666666] focus:border-transparent mb-4 resize-y min-h-[120px] text-[#333333] placeholder-[#CCCCCC]"
-        placeholder="e.g., Write a marketing email for a new software feature called 'AI Methods Pro'."
-      ></textarea>
-      <button
-        onClick={generate}
-        className="bg-[#0A0A0A] text-white px-6 py-3 rounded-full font-semibold w-full md:w-auto hover:bg-[#555555] cursor-pointer"
+    <div className="fixed top-1/2 right-6 transform -translate-y-1/2 z-50 grid justify-items-end opacity-40">
+      {/* Pop-up Options */}
+      <div
+        className={`flex flex-col items-end space-y-2 mb-2 transition-all duration-300 ease-out ${
+          isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
+        }`}
       >
-        {loading ? "Generating..." : "Generate Premium Prompt"}
-      </button>
-      {output && (
-        <pre className="mt-6 text-left text-[#333333] bg-[#EFEFEF] whitespace-pre-wrap p-4 rounded-md">
-          {output}
-        </pre>
-      )}
+        <Link
+          href="/prompts#sparkle-prompt"
+          onClick={(e) => handleLinkClick(e, "sparkle-prompt", "/prompts")}
+          className="flex items-center bg-[#FFFFFF] text-[#0A0A0A] px-4 py-2 rounded-full shadow-md hover:bg-[#E0E0E0] transition-colors duration-200 text-sm font-semibold"
+        >
+          <span className="mr-2 text-xl">✨</span>
+          Sparkle Prompt
+        </Link>
+        <Link
+          href="/#ai-advantage"
+          onClick={(e) => handleLinkClick(e, "ai-advantage", "/")}
+          className="flex items-center bg-[#FFFFFF] text-[#0A0A0A] px-4 py-2 rounded-full shadow-md hover:bg-[#E0E0E0] transition-colors duration-200 text-sm font-semibold"
+        >
+          <span className="mr-2 text-xl">💡</span>
+          AI Advantage
+        </Link>
+      </div>
     </div>
   );
 }

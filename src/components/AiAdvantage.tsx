@@ -36,7 +36,7 @@ export default function AiAdvantage() {
     setLoading(true);
     setOutput("");
 
-    const prompt = `As an expert in AI workflow optimization for businesses, analyze the following user input describing their role or a business challenge. Suggest brief, direct suggestions (3–5 concise paragraphs or bullet points) on how AiMethods (premium AI prompts and custom solutions) can help them, focusing on practical AI applications and benefits. Avoid markdown characters (*, #) in the output.
+    const prompt = `As an expert in AI workflow optimization for businesses, analyze the following user input describing their role or a business challenge. Suggest brief, direct suggestions (3–5 concise paragraphs or bullet points) on how AI Methods (premium AI prompts and custom solutions) can help them, focusing on practical AI applications and benefits. Avoid markdown characters (*, #) in the output.
 
 User Input: "${input}"
 

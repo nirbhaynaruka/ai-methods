@@ -1,6 +1,5 @@
 // File: src/app/page.tsx
 "use client";
-
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import AiAdvantage from "@/components/AiAdvantage";
@@ -10,6 +9,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
+    
     <div className="bg-[#F8F8F8] text-[#0A0A0A]">
       <Header />
 
@@ -17,7 +17,7 @@ export default function Home() {
       <section className="py-20 md:py-32 text-center bg-white">
         <div className="container mx-auto px-6">
           <h1 className="text-4xl md:text-6xl font-bold text-[#0A0A0A] leading-tight">
-            Empower Your Workflows with AiMethods
+            Empower Your Workflows with AI Methods
           </h1>
           <p className="mt-4 text-lg md:text-xl text-[#666666] max-w-3xl mx-auto">
             Unlock the full potential of Generative AI for your business with expertly crafted
@@ -50,7 +50,7 @@ export default function Home() {
             </h2>
             <p className="mt-4 text-lg text-[#666666] max-w-3xl mx-auto">
               We bridge the gap between powerful AI models and practical business applications.
-              Discover how AiMethods can streamline your operations and elevate your output.
+              Discover how AI Methods can streamline your operations and elevate your output.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -114,7 +114,7 @@ export default function Home() {
           </h2>
           <p className="text-lg text-[#666666] max-w-3xl mx-auto mb-8">
             Describe your role or a key business challenge, and let our AI suggest how specialized
-            prompts and AiMethods solutions can streamline your workflow and drive results.
+            prompts and AI Methods solutions can streamline your workflow and drive results.
           </p>
 
 <ClientOnly>

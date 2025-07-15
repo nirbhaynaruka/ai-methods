@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import DemoButton from "@/components/DemoButton"; // ADD THIS IMPORT
 
 const inter = Inter({
   subsets: ["latin"],
@@ -21,7 +22,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AiMethods – Empowering AI Workflows",
+  title: "AiMethods – Empowering AI Workflows", // Updated: "AI Methods" to "AiMethods"
   description:
     "Premium AI prompts, custom solutions, and automation toolkits for modern teams.",
   icons: {
@@ -56,6 +57,7 @@ export default function RootLayout({
         className={`${inter.className} ${geistSans.variable} ${geistMono.variable} antialiased bg-[#FFFFFF] text-[#0A0A0A]`}
       >
         {children}
+        <DemoButton /> {/* ADD THIS LINE */}
       </body>
     </html>
   );

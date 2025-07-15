@@ -2,13 +2,20 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { usePathname } from 'next/navigation'
+import { usePathname , useRouter } from 'next/navigation'
 
 export const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false)
   const pathname = usePathname()
   const isHome = pathname === '/'
+  const router = useRouter();
 
+  const handleClick = (e: React.MouseEvent) => {
+    if (isHome) {
+      e.preventDefault();
+      router.replace("/"); // Or: window.location.reload();
+    }
+  };
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
   }, [menuOpen])
@@ -24,8 +31,8 @@ export const Header = () => {
     <>
       <header className="bg-[#0A0A0A] text-white sticky top-0 z-50 shadow-lg border-b border-[#666666]">
         <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <Link
-            href="/"
+          <Link 
+            href="/" onClick={handleClick}
             className="inline-flex items-center space-x-2 text-2xl font-bold text-white hover:text-[#CCCCCC]"
           >
             <Image
@@ -34,7 +41,7 @@ export const Header = () => {
               width={32}
               height={32}
             />
-            <span>{isHome ? 'AI Methods' : 'Home'}</span>
+            <span>{isHome ? 'AI Methods' : ''}</span>
           </Link>
 
           <div className="hidden md:flex space-x-8 items-center">
