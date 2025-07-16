@@ -10,6 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.4",
+    "@heroicons/react": "^2.2.0",
     "firebase": "^11.10.0",
     "framer-motion": "^12.23.5",
     "next": "15.3.5",

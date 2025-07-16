@@ -37,13 +37,16 @@ export default function DemoLauncher() {
     href: string
   ) => {
     setIsOpen(false);
-    if (pathname === href.split("#")[0]) {
+    const basePath = href.split("#")[0];
+    // Only prevent default and scroll for anchor links on the same page
+    if (pathname === basePath && href.includes("#")) {
       e.preventDefault();
       const targetElement = document.getElementById(targetId);
       if (targetElement) {
         targetElement.scrollIntoView({ behavior: "smooth" });
       }
     }
+    // Otherwise, let navigation happen for page links
   };
 
   // Half-circle positions for 3 buttons (adjust radius as needed)
@@ -69,7 +72,7 @@ export default function DemoLauncher() {
       label: "Humanize Text",
       href: "/humanize",
       targetId: "humanize-text",
-      baseHref: "/",
+      baseHref: "/humanize",
     },
   ];
 

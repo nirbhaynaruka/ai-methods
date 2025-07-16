@@ -3,10 +3,12 @@
 import { useEffect, useState } from 'react';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
+import { Disclosure } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+
 import Link from 'next/link';
 import PremiumPromptGenerator from '@/components/PremiumPromptGenerator';
 
-// ===== TYPES =====
 type ChecklistItem = {
   criterion: string;
   description: string;
@@ -16,7 +18,9 @@ type ChecklistItem = {
 type Technique = {
   description: string;
   benefit: string;
+  visual?: string; // <--- ADD THIS LINE
 };
+
 
 type TechniquesMap = {
   [name: string]: Technique;
@@ -53,7 +57,7 @@ export default function PromptsPage() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ['hero', 'value', 'toolkit', 'library', 'sparkle-prompt', 'strategy'];
+    const sectionIds = ['hero', 'value', 'toolkit', 'library', 'sparkle-prompt'];
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -77,29 +81,47 @@ export default function PromptsPage() {
   return (
     <div className="bg-[#F8F8F8] text-[#0A0A0A]">
       <Header />
-
-      {/* Nav */}
       <nav className="bg-[#FFFFFF]/80 backdrop-blur-md top-[68px] z-40 shadow-sm border-b border-[#E0E0E0] sticky">
-        <div className="container mx-auto px-6 py-3 flex justify-center md:justify-start space-x-6 md:space-x-8 text-sm font-medium">
+        <div className="md:hidden px-4 py-2">
+          <select
+            className="w-full border rounded px-3 py-2"
+            value={activeSection}
+            onChange={e => {
+              const id = e.target.value;
+              setActiveSection(id);
+              document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+            }}
+          >
+            {[
+              { id: 'hero', label: 'Prompts Overview' },
+              { id: 'value', label: 'Anatomy' },
+              { id: 'toolkit', label: 'Toolkit' },
+              { id: 'library', label: 'Library' },
+              { id: 'sparkle-prompt', label: 'Sparkle Prompt' },
+            ].map(({ id, label }) => (
+              <option key={id} value={id}>{label}</option>
+            ))}
+          </select>
+        </div>
+        <div className="container mx-auto px-6 py-3 hidden  md:flex justify-center md:justify-start space-x-6 md:space-x-8 text-sm font-medium">
           {[
             { id: 'hero', label: 'Prompts Overview' },
-            { id: 'value', label: 'Value' },
+            { id: 'value', label: 'Anatomy' },
             { id: 'toolkit', label: 'Toolkit' },
             { id: 'library', label: 'Library' },
             { id: 'sparkle-prompt', label: 'Sparkle Prompt' },
-            { id: 'strategy', label: 'Strategy' },
           ].map(({ id, label }) => (
             <a
               key={id}
               href={`#${id}`}
-              className={`hover:text-[#555555] transition-colors ${
-                activeSection === id ? 'text-[#0A0A0A] font-semibold' : 'text-[#666666]'
-              }`}
+              className={`hover:text-[#555555] transition-colors ${activeSection === id ? 'text-[#0A0A0A] font-semibold' : 'text-[#666666]'
+                }`}
             >
               {label}
             </a>
           ))}
         </div>
+
       </nav>
 
       {/* Hero */}
@@ -118,27 +140,36 @@ export default function PromptsPage() {
 
       {/* Value */}
       <section id="value" className="py-20 bg-[#EFEFEF]">
-        <div className="container mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#0A0A0A]">
-            The Anatomy of a Premium Prompt
-          </h2>
-          <div className="max-w-4xl mx-auto space-y-4">
-            {checklist.map((item, i) => (
-              <div key={i} className="bg-[#FFFFFF] rounded-lg shadow border border-[#E0E0E0]">
-                <details className="p-4">
-                  <summary className="cursor-pointer font-semibold text-[#0A0A0A]">
-                    {item.criterion}
-                  </summary>
-                  <p className="mt-2 text-sm text-[#666666]">{item.description}</p>
-                  <div className="mt-2 text-sm text-[#333333]">
-                    <strong>Key Techniques:</strong> {item.techniques.join(', ')}
-                  </div>
-                </details>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+  <div className="container mx-auto px-6 max-w-3xl">
+    <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center text-[#0A0A0A]">
+      The Anatomy of a Premium Prompt
+    </h2>
+    <div className="space-y-4">
+      {checklist.map((item, i) => (
+        <Disclosure key={i}>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="flex justify-between w-full rounded-lg bg-white px-6 py-4 text-left text-md font-medium text-[#0A0A0A] shadow hover:bg-[#F8F8F8] focus:outline-none focus-visible:ring focus-visible:ring-[#AAAAAA] focus-visible:ring-opacity-75">
+                <span>{item.criterion}</span>
+                <ChevronDownIcon
+                  className={`${
+                    open ? "rotate-180 transform" : ""
+                  } h-5 w-5 text-[#666666]`}
+                />
+              </Disclosure.Button>
+              <Disclosure.Panel className="px-6 pt-2 pb-4 text-sm text-[#666666] bg-white rounded-lg border border-t-0 border-[#E0E0E0]">
+                <p className="mb-2">{item.description}</p>
+                <p className="text-[#333333] text-sm">
+                  <strong>Key Techniques:</strong> <span className="text-[#2563EB]">{item.techniques.join(", ")}</span>
+                </p>
+              </Disclosure.Panel>
+            </>
+          )}
+        </Disclosure>
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Toolkit */}
       <section id="toolkit" className="py-20 bg-[#FFFFFF]">
@@ -152,28 +183,38 @@ export default function PromptsPage() {
                 <button
                   key={key}
                   onClick={() => setSelectedTech(key)}
-                  className={`tech-btn w-full text-left p-3 rounded-md border ${
-                    selectedTech === key
-                      ? 'bg-[#AAAAAA] text-[#0A0A0A] font-semibold'
+                  className={`tech-btn w-full text-left p-3 rounded-md  ${selectedTech === key
+                      ? 'bg-[#666666] text-[white] font-semibold'
                       : 'bg-[#FFFFFF] text-[#333333]'
-                  }`}
+                    }`}
                 >
                   {key}
                 </button>
               ))}
             </div>
-            <div className="md:w-2/3 bg-[#EFEFEF] p-6 rounded-lg">
+                       <div className="md:w-2/3 bg-[#EFEFEF] p-6 rounded-lg">
               {selectedTech && (
                 <div>
                   <h3 className="text-xl font-bold mb-2 text-[#0A0A0A]">{selectedTech}</h3>
-                  <p className="text-sm text-[#666666] mb-4">
+                  <p className="text-sm text-[#666666] mb-4 text-left">
                     {techniques[selectedTech].description}
                   </p>
-                  <p className="text-sm font-semibold mb-1 text-[#0A0A0A]">Primary Benefit:</p>
-                  <p className="text-sm text-[#333333]">{techniques[selectedTech].benefit}</p>
+                  <p className="text-sm font-semibold mb-1 text-left text-[#0A0A0A]">Primary Benefit:</p>
+                  <p className="text-sm text-[#333333] text-left mb-4">{techniques[selectedTech].benefit}</p>
+                  {/* Render the visual representation using dangerouslySetInnerHTML */}
+                  {techniques[selectedTech].visual && ( // <--- ADD THIS BLOCK STARTING HERE
+                    <>
+                      <p className="text-sm font-semibold mb-1 text-left text-[#0A0A0A]">Visual Aid:</p>
+                      <div
+                        className="bg-white p-4 rounded-md border border-[#E0E0E0] flex justify-center items-center"
+                        dangerouslySetInnerHTML={{ __html: techniques[selectedTech].visual }}
+                      />
+                    </>
+                  )} {/* <--- END OF THE BLOCK TO ADD */}
                 </div>
               )}
             </div>
+
           </div>
         </div>
       </section>
@@ -182,18 +223,17 @@ export default function PromptsPage() {
       <section id="library" className="py-20 bg-[#EFEFEF]">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-[#0A0A0A]">
-            Premium Prompt Library
+            The Premium Prompt Library
           </h2>
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             {Object.keys(prompts).map((key) => (
               <button
                 key={key}
                 onClick={() => setSelectedPrompt(key)}
-                className={`tab-btn px-4 py-2 rounded-full border font-medium ${
-                  selectedPrompt === key
+                className={`tab-btn px-4 py-2 rounded-full border font-medium ${selectedPrompt === key
                     ? 'bg-[#0A0A0A] text-white'
                     : 'border-[#CCCCCC] text-[#0A0A0A] hover:bg-[#E0E0E0]'
-                }`}
+                  }`}
               >
                 {key}
               </button>
@@ -202,7 +242,7 @@ export default function PromptsPage() {
           {selectedPrompt && (
             <div className="bg-[#FFFFFF] p-6 rounded-lg shadow-md text-left max-w-5xl mx-auto border border-[#E0E0E0]">
               <h3 className="text-2xl font-bold mb-1 text-[#0A0A0A]">{selectedPrompt}</h3>
-              <p className="text-sm text-[#666666] font-semibold uppercase">
+              <p className="text-sm text-[#2563EB] font-semibold uppercase">
                 {prompts[selectedPrompt].category}
               </p>
               <p className="text-[#333333] mt-2 mb-4">{prompts[selectedPrompt].value}</p>
@@ -211,7 +251,7 @@ export default function PromptsPage() {
                 {prompts[selectedPrompt].techniques.map((tech) => (
                   <span
                     key={tech}
-                    className="ml-2 inline-block bg-[#AAAAAA] text-[#0A0A0A] text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                    className="ml-2 inline-block bg-[#white] ring-[#1E40AF] ring-2 text-[#1E40AF] text-xs font-semibold px-2.5 py-0.5 rounded-full"
                   >
                     {tech}
                   </span>
