@@ -41,7 +41,7 @@ export const Header = () => {
               width={32}
               height={32}
             />
-            <span>{isHome ? 'AI Methods' : ''}</span>
+            <span>AI Methods</span>
           </Link>
 
           <div className="hidden md:flex space-x-8 items-center">
