@@ -77,7 +77,7 @@ export default function ContactPage() {
                 required
                 value={form.name}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-[#E0E0E0] rounded-md text-[#333333] focus:ring-2 focus:ring-[#666666] focus:border-transparent"
+                className="w-full px-4 py-3 border border-[#E0E0E0] rounded-md text-[#333333] focus:border-transparent"
                 placeholder="John Doe"
               />
             </div>
@@ -90,7 +90,7 @@ export default function ContactPage() {
                 required
                 value={form.email}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-[#E0E0E0] rounded-md text-[#333333] focus:ring-2 focus:ring-[#666666] focus:border-transparent"
+                className="w-full px-4 py-3 border border-[#E0E0E0] rounded-md text-[#333333] focus:border-transparent"
                 placeholder="you@example.com"
               />
             </div>
@@ -102,7 +102,7 @@ export default function ContactPage() {
                 type="text"
                 value={form.subject}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-[#E0E0E0] rounded-md text-[#333333] focus:ring-2 focus:ring-[#666666] focus:border-transparent"
+                className="w-full px-4 py-3 border border-[#E0E0E0] rounded-md text-[#333333]  focus:border-transparent"
                 placeholder="Inquiry about..."
               />
             </div>
@@ -115,7 +115,7 @@ export default function ContactPage() {
                 required
                 value={form.message}
                 onChange={handleChange}
-                className="w-full px-4 py-3 border border-[#E0E0E0] rounded-md text-[#333333] resize-y focus:ring-2 focus:ring-[#666666] focus:border-transparent"
+                className="w-full px-4 py-3 border border-[#E0E0E0] rounded-md text-[#333333] resize-y focus:border-transparent"
                 placeholder="Tell us how we can help..."
               ></textarea>
             </div>

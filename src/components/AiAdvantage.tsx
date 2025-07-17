@@ -72,7 +72,7 @@ Suggestions:`;
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="w-full p-4 rounded-md border border-[#CCCCCC] focus:ring-2 focus:ring-[#666666] focus:border-transparent mb-4 resize-y min-h-[100px] text-[#333333] placeholder-[#CCCCCC]"
+        className="w-full p-4 rounded-md border border-[#CCCCCC]  focus:border-transparent mb-4 resize-y min-h-[100px] text-[#333333] placeholder-[#CCCCCC]"
         placeholder="e.g., I'm a marketing manager struggling with content ideas..."
       ></textarea>
       <button

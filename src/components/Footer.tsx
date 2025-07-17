@@ -1,17 +1,30 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
+
 import { FaGithub, FaLinkedin, FaXTwitter, FaEnvelope } from 'react-icons/fa6'
 
 export const Footer = () => {
   return (
-    <footer className="bg-[#0A0A0A] text-[#CCCCCC] pt-16 pb-8 border-t border-[#666666]">
+    <footer className="bg-[#0A0A0A] text-[#CCCCCC] pt-8 pb-8 border-t border-[#666666]">
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12">
         {/* Brand + Socials */}
         <div className="md:col-span-2">
-          <h3 className="text-2xl font-bold text-white mb-4">AI METHODS</h3>
+          <div className="md:col-span-2">
+            <div className="flex items-center space-x-2 mb-4">
+              <Image
+                src="/images/app_icon_512_transparent.png"
+                alt="AI Methods Logo"
+                width={32}
+                height={32}
+              />
+              <h3 className="text-2xl font-bold text-white">AI METHODS</h3>
+            </div>
+          </div>
+
           <p className="text-sm leading-relaxed mb-4">
-            
-             We build AI that’s enhanced by HI.
+
+            We build AI that’s enhanced by HI.
           </p>
           <div className="flex space-x-4 text-white text-xl">
             <a href="https://github.com/aimethods" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -60,9 +73,8 @@ export const Footer = () => {
       </div>
 
       <div className="container mx-auto px-6 pt-12 border-[#666666] text-center text-sm text-[#CCCCCC]">
-        <p>© 2025 AI METHODS. All rights reserved.</p>
-        <p className="mt-2">Built in public. Inspired by humans. Powered by AI.</p>
-        
+        <p>© 2025 AI METHODS. All rights reserved. | Built in public. Inspired by humans. Powered by AI.</p>
+
       </div>
     </footer>
   )

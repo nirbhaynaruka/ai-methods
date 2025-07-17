@@ -74,7 +74,7 @@ Humanized version:`;
             <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className="w-full p-4 rounded-md border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-transparent mb-4 resize-y min-h-[120px] text-gray-700"
+                className="w-full p-4 rounded-md border border-gray-300 focus:border-transparent mb-4 resize-y min-h-[120px] text-gray-700"
                 placeholder="Paste or type your text here..."
             ></textarea>
             <button

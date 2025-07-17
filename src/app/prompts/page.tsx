@@ -135,6 +135,24 @@ export default function PromptsPage() {
             queries, our specialized prompt packages engineer high-value instructions that deliver
             unparalleled results for analysts, creators, and builders.
           </p>
+          <div className="mt-8 flex justify-center space-x-4">
+            <Link href="/waitlist" className="bg-[#0A0A0A] text-white px-6 py-3 rounded-xl font-semibold shadow hover:bg-[#222222]">
+              Join Our Waitlist
+            </Link>
+            <Link href="#value" className="bg-white text-[#0A0A0A] px-6 py-3 rounded-xl font-semibold shadow hover:bg-gray-200">
+              Learn More
+            </Link>
+          </div>
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto text-[#0A0A0A]">
+            <div className="bg-[#EFEFEF] p-6 rounded-lg shadow-md">
+              <p className="text-4xl font-bold text-[#2563EB]">$6,533.87 B</p>
+              <p className="text-sm mt-2">Projected Prompt Engineering Market by 2034</p>
+            </div>
+            <div className="bg-[#EFEFEF] p-6 rounded-lg shadow-md">
+              <p className="text-4xl font-bold text-[#2563EB]">32.90%</p>
+              <p className="text-sm mt-2">Compound Annual Growth Rate (CAGR)</p>
+            </div>
+          </div>
         </div>
       </section>
 

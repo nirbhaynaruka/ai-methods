@@ -28,12 +28,12 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/assets/images/favicon_32_transparent.png",
+        url: "/public/images/favicon_32_transparent.png",
         sizes: "32x32",
         type: "image/png",
       },
       {
-        url: "/assets/images/favicon_16_transparent.png",
+        url: "/public/images/favicon_16_transparent.png",
         sizes: "16x16",
         type: "image/png",
       },
