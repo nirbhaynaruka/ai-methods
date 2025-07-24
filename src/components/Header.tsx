@@ -22,9 +22,12 @@ export const Header = () => {
 
   const navLinks = [
     // !isHome && { label: 'Home', href: '/' },
-    { label: 'For Business', href: '/business' },
+    { label: 'Services', href: '/services' },
+    { label: 'Solutions', href: '/solutions' },
+    { label: 'Testimonials', href: '/testimonials' },
     { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' }
+    { label: 'Contact', href: '/contact' },
+    
   ].filter(Boolean)
 
   return (
