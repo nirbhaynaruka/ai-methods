@@ -56,3 +56,39 @@ body {
   height: 0;
   overflow: hidden;
 }
+/* File: src/app/globals.css */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS for animations and transitions */
+
+/* Card entry animation */
+@keyframes card-enter {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Details pane transition */
+.details-pane {
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+    max-height: 0; /* Ensures it's initially collapsed */
+    overflow: hidden; /* Hides content when collapsed */
+    /* Explicitly setting base padding to 0 for smooth transition */
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.details-pane.open {
+    max-height: 1000px; /* Increased for robustness - make this value large enough for any content */
+    padding-top: 1.5rem; /* p-6 equivalent for top/bottom */
+    padding-bottom: 1.5rem;
+}
+
