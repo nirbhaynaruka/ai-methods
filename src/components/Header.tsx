@@ -89,12 +89,12 @@ export const Header = () => {
         <nav className="container mx-auto px-6 py-4 flex justify-between items-center">
           <Link href="/" onClick={handleClick} className="flex items-center space-x-2 text-2xl font-bold">
             <Image
-              src="/logo.svg" // Changed to a generic logo path
-              alt="Logo"
+              src="/images/app_icon_512_transparent.png"
+              alt="AI Methods Logo"
               width={32}
               height={32}
             />
-            <span>YourLogo</span>
+            <span>AI Methods</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -127,7 +127,7 @@ export const Header = () => {
             ))}
             <Link
               href="/contact"
-              className="ml-4 px-5 py-2.5 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition"
+              className="ml-4 px-5 py-2.5 bg-white text-black rounded-lg font-medium hover:bg-white-600 transition"
             >
               Contact Us
             </Link>
