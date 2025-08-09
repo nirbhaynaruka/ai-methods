@@ -10,21 +10,18 @@ export const Footer = () => {
       <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12">
         {/* Brand + Socials */}
         <div className="md:col-span-2">
-          <div className="md:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              <Image
-                src="/images/app_icon_512_transparent.png"
-                alt="AI Methods Logo"
-                width={32}
-                height={32}
-              />
-              <h3 className="text-2xl font-bold text-white">AI METHODS</h3>
-            </div>
+          <div className="flex items-center space-x-2 mb-4">
+            <Image
+              src="/images/app_icon_512_transparent.png"
+              alt="AI Methods Logo"
+              width={32}
+              height={32}
+            />
+            <h3 className="text-2xl font-bold text-white">AI Methods</h3>
           </div>
 
           <p className="text-sm leading-relaxed mb-4">
-
-            We build AI that’s enhanced by HI.
+            We build AI that's enhanced by HI - Human Intelligence. Transform your business with cutting-edge artificial intelligence solutions.
           </p>
           <div className="flex space-x-4 text-white text-xl">
             <a href="https://github.com/aimethods" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
@@ -58,7 +55,8 @@ export const Footer = () => {
           <ul className="space-y-2 text-sm">
             <li><Link href="/about" className="hover:text-white">About</Link></li>
             <li><Link href="/contact" className="hover:text-white">Contact</Link></li>
-            {/* <li><Link href="/careers" className="hover:text-white">Careers</Link></li> */}
+            <li><Link href="/services" className="hover:text-white">Services</Link></li>
+            <li><Link href="/solutions" className="hover:text-white">Solutions</Link></li>
           </ul>
         </div>
 
@@ -73,8 +71,7 @@ export const Footer = () => {
       </div>
 
       <div className="container mx-auto px-6 pt-12 border-[#666666] text-center text-sm text-[#CCCCCC]">
-        <p>© 2025 AI METHODS. All rights reserved. | Built in public. Inspired by humans. Powered by AI.</p>
-
+        <p>© 2025 AI Methods. All rights reserved. | Built in public. Inspired by humans. Powered by AI.</p>
       </div>
     </footer>
   )

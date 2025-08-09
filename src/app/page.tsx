@@ -27,7 +27,7 @@ export default function Home() {
           <div className="mt-8 flex flex-col sm:flex-row justify-center gap-4">
             <Link
               href="/prompts"
-              className="bg-white text-[#0A0A0A] px-6 py-3 rounded-xl font-semibold shadow hover:bg-gray-200"
+              className="bg-white text-[#0A0A0A] px-6 py-3 rounded-xl border border-black font-semibold shadow hover:bg-gray-200"
             >
               Explore Premium Prompts
             </Link>
