@@ -38,50 +38,49 @@ export const Header = () => {
 
   // Updated navLinks to include 'Industries' with children for the dropdown
   const navLinks = [
-    { label: 'About', href: '/about' },
-    {
-      label: 'Services',
-      href: '/services',
-      children: [
-        { label: 'AI & ML', href: '/services/aiml' },
-        { label: 'Generative AI', href: '/services/genai' },
-        { label: 'Big Data', href: '/services/bigdata' },
-        { label: 'Software Development', href: '/services/swe' },
-
-      ],
-    },
-    {
-      label: 'Solutions',
-      href: '/solutions',
-      children: [
-        { label: 'Predictive Modeling', href: '/solutions/predictive-modeling' },
-        { label: 'AI Agents', href: '/solutions/agents' },
-        { label: 'Customer Support Agent', href: '/solutions/cust-agent' },
-        { label: 'Lead Generation Analysis', href: '/solutions/lead' },
-        { label: 'Churn Prediction in Business', href: '/solutions/churn' },
-        { label: 'Computer Vision', href: '/solutions/cv' },
-        { label: 'Natural Language Processing', href: '/solutions/nlp' },
-
-      ],
-    },
-    {
-      label: 'Industries',
-      href: '/industries',
-      children: [
-        { label: 'Healthcare & Pharma', href: '/industries/healthcare' },
-        { label: 'E-commerce', href: '/industries/ecommerce' },
-        { label: 'Game & Entertainment', href: '/industries/gaming' },
-        { label: 'FinTech', href: '/industries/fintech' },
-        { label: 'Retail', href: '/industries/retail' },
-        { label: 'Sport & Wellness', href: '/industries/sports' },
-        { label: 'Automotive', href: '/industries/automotive' },
-        { label: 'MarTech', href: '/industries/martech' },
-        { label: 'Logistics', href: '/industries/logistics' },
-      ],
-    },
-    { label: 'Testimonials', href: '/success-stories' },
-    { label: 'Blogs', href: '/blog' },
-  ]
+  { label: 'About', href: '/about' },
+  {
+    label: 'Services',
+    href: '/services',
+    children: [
+      { label: 'AI Consulting & Strategy', href: '/services/consulting' },
+      { label: 'Custom AI & ML Development', href: '/services/custom-ml' },
+      { label: 'Generative AI Solutions', href: '/services/genai' },
+      { label: 'Data Engineering & MLOps', href: '/services/data-mlops' },
+      { label: 'Computer Vision & NLP', href: '/services/cv-nlp' },
+      { label: 'AI Workflow Automation', href: '/services/automation' },
+    ],
+  },
+  {
+    label: 'Solutions',
+    href: '/solutions',
+    children: [
+      { label: 'Churn Prediction', href: '/solutions/churn' },
+      { label: 'AI Customer Support Agent', href: '/solutions/cust-agent' },
+      { label: 'Lead Generation Scoring', href: '/solutions/lead-gen' },
+      { label: 'Computer Vision Quality Control', href: '/solutions/cv' },
+      { label: 'Persona Generator Pro', href: '/solutions/persona-gen' },
+      { label: 'Internal AI Knowledge Assistant', href: '/solutions/knowledge-assistant' },
+      { label: 'Compliance & Audit AI', href: '/solutions/compliance' },
+      { label: 'Multi-Role AI Agent Library', href: '/solutions/agent-library' },
+    ],
+  },
+  {
+    label: 'Industries',
+    href: '/industries',
+    children: [
+      { label: 'Healthcare & Pharma', href: '/industries/healthcare' },
+      { label: 'Finance & FinTech', href: '/industries/fintech' },
+      { label: 'Retail & E-Commerce', href: '/industries/ecommerce' },
+      { label: 'Logistics & Supply Chain', href: '/industries/logistics' },
+      { label: 'Manufacturing & Automotive', href: '/industries/manufacturing' },
+      { label: 'Human Resources & Recruitment', href: '/industries/hr' },
+      { label: 'Regulatory Compliance', href: '/industries/compliance' },
+    ],
+  },
+  { label: 'Testimonials', href: '/success-stories' },
+  { label: 'Blogs', href: '/blog' },
+]
 
   return (
     <>
@@ -109,7 +108,7 @@ export const Header = () => {
 
                 {/* Dropdown Menu */}
                 {link.children && (
-                  <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-max max-w-4xl p-6 bg-white text-black rounded-lg shadow-xl hidden group-hover:block">
+                  <div className="absolute top-full left-1/2 -translate-x-1/2 w-max max-w-4xl p-6 bg-white text-black rounded-lg shadow-xl hidden group-hover:block">
                     <div className="grid grid-cols-3 gap-x-12 gap-y-4">
                       {link.children.map((child) => (
                         <Link
