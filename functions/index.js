@@ -30,3 +30,52 @@ setGlobalOptions({ maxInstances: 10 });
 //   logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
+
+// Secure onboarding keys function
+exports.getClientOnboardingData = onRequest((request, response) => {
+  // Enable CORS
+  response.set('Access-Control-Allow-Origin', '*');
+  response.set('Access-Control-Allow-Methods', 'GET, POST');
+  response.set('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (request.method === 'OPTIONS') {
+    response.status(204).send('');
+    return;
+  }
+
+  // Map client slugs to their access credentials and display name.
+  const clientOnboardingMap = {
+    // Example Client 1: BITYOG - Access Key: yoga4ai
+    'bityog': {
+      key: 'yoga4ai', // The password the client will use for access
+      name: 'BITYOG FITNESS',
+    },
+    // Example Client 2: A hypothetical client - Access Key: healthai2025
+    'medcorp': {
+      key: 'healthai2025',
+      name: 'MedCorp Diagnostics',
+    },
+    // Add new clients here as needed:
+    // 'newclient': {
+    //   key: 'securekey123',
+    //   name: 'New Client Enterprises',
+    // },
+  };
+
+  const slug = request.query.slug;
+  if (!slug) {
+    response.status(400).json({ error: 'Slug parameter is required' });
+    return;
+  }
+
+  const data = clientOnboardingMap[slug];
+  if (data) {
+    response.json({
+      name: data.name,
+      key: data.key,
+      slug: slug,
+    });
+  } else {
+    response.status(404).json({ error: 'Client not found' });
+  }
+});

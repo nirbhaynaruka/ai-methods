@@ -4,20 +4,26 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-interface ClientData {
-  name: string;
-  email?: string;
-}
+import { ClientData } from '@/lib/onboardingKeys'; // Import ClientData interface/type
 
 // === 1. Client Entry Component ===
 // This component manages the overall state (authenticated or not) and handles the client-server boundary.
-// Note: Since we're now using Firestore, password protection is removed for simplicity.
-// Authentication can be handled via email or other means if needed.
 export default function ClientOnboardingContent({ clientData }: { clientData: ClientData }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(true); // Always authenticated for now
-  const [isLoading, setIsLoading] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const clientSlug = clientData.slug;
 
-  // No authentication check needed since we're always authenticated
+  // Check authentication status on initial load using a client-side hook
+  useEffect(() => {
+    // Check session storage for an existing authentication flag
+    if (typeof window !== 'undefined') {
+      const storedAuth = sessionStorage.getItem(`onboarding-auth-${clientSlug}`);
+      if (storedAuth === 'true') {
+        setIsAuthenticated(true);
+      }
+    }
+    setIsLoading(false);
+  }, [clientSlug]);
 
   if (isLoading) {
     return (
@@ -33,7 +39,11 @@ export default function ClientOnboardingContent({ clientData }: { clientData: Cl
           to be included inside the top-level client boundary for layout consistency */}
       <Header />
       <main className="flex-1 flex flex-col items-center justify-center py-8 px-4">
-        <OnboardingForm clientName={clientData.name} />
+        {isAuthenticated ? (
+          <OnboardingForm clientName={clientData.name} />
+        ) : (
+          <PasswordGate clientData={clientData} onAuthenticated={() => setIsAuthenticated(true)} />
+        )}
       </main>
       <Footer />
     </div>
@@ -43,7 +53,52 @@ export default function ClientOnboardingContent({ clientData }: { clientData: Cl
 
 // --- Client Sub-Components ---
 
-// Password protection removed since we're using Firestore and always authenticating for now
+// 1.1 Password Protection Component
+function PasswordGate({ clientData, onAuthenticated }: { clientData: ClientData; onAuthenticated: () => void }) {
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+
+  const handleLogin = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (password === clientData.key) {
+      onAuthenticated();
+      // Store a simple auth flag in sessionStorage (session only, not persistent)
+      sessionStorage.setItem(`onboarding-auth-${clientData.slug}`, 'true');
+    } else {
+      setError('Incorrect access code. Please try again.');
+      setPassword('');
+    }
+  };
+
+  return (
+    <div className="max-w-md mx-auto p-8 bg-white rounded-xl shadow-2xl border border-[#E0E0E0] mt-16">
+      <h2 className="text-3xl font-bold mb-4 text-[#0A0A0A]">Secure Access Required</h2>
+      <p className="text-[#666666] mb-6">
+        Please enter the unique access code provided by AI Methods for **{clientData.name}**.
+      </p>
+      <form onSubmit={handleLogin} className="space-y-4">
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setError('');
+          }}
+          className="w-full px-4 py-3 border border-[#CCCCCC] rounded-md text-[#333333] focus:ring-2 focus:ring-[#0A0A0A] focus:border-transparent transition-all duration-200"
+          placeholder="Enter Access Code"
+          required
+        />
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+        <button
+          type="submit"
+          className="cta-button cta-button-primary w-full"
+        >
+          Unlock Onboarding
+        </button>
+      </form>
+    </div>
+  );
+}
 
 // 1.2 Main Onboarding Form Component (Client Intake)
 function OnboardingForm({ clientName }: { clientName: string }) {

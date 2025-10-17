@@ -1,26 +1,23 @@
 // File: src/app/onboarding/[client-slug]/page.tsx
 // This file is a Server Component and must NOT contain 'use client' or client hooks.
 
-import { getClientData } from '@/lib/firebaseAdmin'
-
+import { getClientData, ClientData } from '@/lib/onboardingKeys';
 import Link from 'next/link';
 // Assuming '@/components/ClientOnboarding' is the correct path for your client component
-import ClientOnboardingContent from '@/components/ClientOnboarding'; 
+import ClientOnboardingContent from '@/components/ClientOnboarding';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
 // === 1. SERVER COMPONENT LOGIC (for Static Build) ===
 
 // Export required for Next.js Static Export (`output: 'export'`)
-// Note: Since we're now using Firestore, we need to define static params manually
-// or fetch them at build time. For now, we'll hardcode the known slugs.
 export async function generateStaticParams() {
   // Generates paths like /onboarding/bityog and /onboarding/medcorp
-  // TODO: Fetch from Firestore if needed, but for static export, keep minimal
-  return [
-    { 'client-slug': 'bityog' },
-    { 'client-slug': 'medcorp' },
-  ];
+  // Since data is now fetched from Firebase, we need to define known slugs statically
+  const knownSlugs = ['bityog', 'medcorp']; // Add more as needed
+  return knownSlugs.map((slug) => ({
+    'client-slug': slug,
+  }));
 }
 
 // The default export must be an async function (Server Component).

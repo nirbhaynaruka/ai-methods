@@ -1,7 +1,7 @@
 // File: src/app/onboarding/[client-slug]/layout.tsx
 import { Metadata, ResolvingMetadata } from 'next';
 import React from 'react';
-import { getClientData } from '@/lib/firebaseAdmin';
+import { getClientData } from '@/lib/onboardingKeys';
 
 // Define the core parameter type (used safely by generateMetadata)
 type ClientParams = { 'client-slug': string };
@@ -33,8 +33,8 @@ export async function generateMetadata(
 }
 
 // FINAL FIX: Default Export
-// We use a simplified inline type for the default export to bypass the internal 
-// compiler's faulty type comparison. We explicitly use React.ReactNode for children 
+// We use a simplified inline type for the default export to bypass the internal
+// compiler's faulty type comparison. We explicitly use React.ReactNode for children
 // and a generic/any type for params in the component itself to prevent the build error.
 export default function ClientOnboardingLayout({
   children,
