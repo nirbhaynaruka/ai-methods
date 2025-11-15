@@ -36,49 +36,48 @@ export const Header = () => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
   }, [menuOpen])
 
-  // Updated navLinks to include 'Industries' with children for the dropdown
+  // Updated navLinks to include 'Industries' with children for the dropdown, sub-links point to main pages with anchors
   const navLinks = [
   { label: 'About', href: '/about' },
   {
     label: 'Services',
     href: '/services',
     children: [
-      { label: 'AI Consulting & Strategy', href: '/services/consulting' },
-      { label: 'Custom AI & ML Development', href: '/services/custom-ml' },
-      { label: 'Generative AI Solutions', href: '/services/genai' },
-      { label: 'Data Engineering & MLOps', href: '/services/data-mlops' },
-      { label: 'Computer Vision & NLP', href: '/services/cv-nlp' },
-      { label: 'AI Workflow Automation', href: '/services/automation' },
+      { label: 'AI Consulting & Strategy', href: '/services#ai-consulting-strategy' },
+      { label: 'Custom AI & ML Development', href: '/services#custom-ai-ml-development' },
+      { label: 'Generative AI Solutions', href: '/services#generative-ai-solutions' },
+      { label: 'Data Engineering & MLOps', href: '/services#data-engineering-mlops' },
+      { label: 'Computer Vision & NLP', href: '/services#computer-vision-nlp' },
+      { label: 'AI Workflow Automation', href: '/services#ai-workflow-automation' },
     ],
   },
   {
     label: 'Solutions',
     href: '/solutions',
     children: [
-      { label: 'Churn Prediction', href: '/solutions/churn' },
-      { label: 'AI Customer Support Agent', href: '/solutions/cust-agent' },
-      { label: 'Lead Generation Scoring', href: '/solutions/lead-gen' },
-      { label: 'Computer Vision Quality Control', href: '/solutions/cv' },
-      { label: 'Persona Generator Pro', href: '/solutions/persona-gen' },
-      { label: 'Internal AI Knowledge Assistant', href: '/solutions/knowledge-assistant' },
-      { label: 'Compliance & Audit AI', href: '/solutions/compliance' },
-      { label: 'Multi-Role AI Agent Library', href: '/solutions/agent-library' },
+      { label: 'Churn Prediction', href: '/solutions#churn-prediction' },
+      { label: 'AI Customer Support Agent', href: '/solutions#ai-customer-support-agent' },
+      { label: 'Lead Generation Scoring', href: '/solutions#lead-generation-scoring' },
+      { label: 'Computer Vision Quality Control', href: '/solutions#computer-vision-quality-control' },
+      { label: 'Persona Generator Pro', href: '/solutions#persona-generator-pro' },
+      { label: 'Internal AI Knowledge Assistant', href: '/solutions#internal-ai-knowledge-assistant' },
+      { label: 'Compliance & Audit AI', href: '/solutions#compliance-audit-ai' },
+      { label: 'Multi-Role AI Agent Library', href: '/solutions#multi-role-ai-agent-library' },
     ],
   },
   {
     label: 'Industries',
     href: '/industries',
     children: [
-      { label: 'Healthcare & Pharma', href: '/industries/healthcare' },
-      { label: 'Finance & FinTech', href: '/industries/fintech' },
-      { label: 'Retail & E-Commerce', href: '/industries/ecommerce' },
-      { label: 'Logistics & Supply Chain', href: '/industries/logistics' },
-      { label: 'Manufacturing & Automotive', href: '/industries/manufacturing' },
-      { label: 'Human Resources & Recruitment', href: '/industries/hr' },
-      { label: 'Regulatory Compliance', href: '/industries/compliance' },
+      { label: 'Healthcare & Pharma', href: '/industries#healthcare-pharma' },
+      { label: 'Finance & FinTech', href: '/industries#finance-fintech' },
+      { label: 'Retail & E-Commerce', href: '/industries#retail-e-commerce' },
+      { label: 'Logistics & Supply Chain', href: '/industries#logistics-supply-chain' },
+      { label: 'Manufacturing & Automotive', href: '/industries#manufacturing-automotive' },
+      { label: 'Human Resources & Recruitment', href: '/industries#human-resources-recruitment' },
+      { label: 'Regulatory Compliance', href: '/industries#regulatory-compliance' },
     ],
   },
-  { label: 'Testimonials', href: '/success-stories' },
   { label: 'Blogs', href: '/blog' },
 ]
 
@@ -146,9 +145,9 @@ export const Header = () => {
 
       {/* Mobile Menu Overlay */}
       {menuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-95 z-50 flex flex-col items-center justify-center">
+        <div className="fixed inset-0 bg-black bg-opacity-95 z-50 flex flex-col justify-start pt-16">
           <button onClick={() => setMenuOpen(false)} className="absolute top-6 right-6 text-white text-4xl">&times;</button>
-          <nav className="flex flex-col items-center space-y-6 text-white text-2xl">
+          <nav className="flex flex-col items-center space-y-6 text-white text-2xl overflow-y-auto max-h-full px-6 pb-6">
             {navLinks.map((link) => (
               <div key={link.href} className="text-center">
                 <Link

@@ -3,69 +3,58 @@
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
-export default function BusinessPage() {
-  const solutions = [
+export default function ServicesPage() {
+  const services = [
     {
-      title: "AI Ethics & Responsible Usage",
-      problem: "Teams misuse or underuse AI tools, risking leaks and inefficiency.",
-      solution: "Compliance-grade AI onboarding + training that scales with your team.",
-      features: [
-        "Notion playbook (free)",
-        "LMS integration",
-        "Certificate-based learning"
-      ],
-      audience: "HR, L&D, CTOs",
-      cta: "Start with Free Playbook"
+      title: "AI Consulting & Strategy",
+      description: "Develop comprehensive AI strategies tailored to your business goals, ensuring ethical implementation and maximum ROI.",
+      challenges: ["Strategic planning", "Technology selection", "Risk assessment"],
+      solutions: ["AI roadmap development", "Vendor evaluation", "Implementation planning"],
+      icon: "🎯",
+      href: "/services#ai-consulting-strategy",
     },
     {
-      title: "Prompt & Doc Tagging System",
-      problem: "Chaos in prompt reuse and document workflows.",
-      solution: "LLM-powered tagging and retrieval built for Notion, Slack, and docs.",
-      features: [
-        "Auto-tag prompts, notes, and files",
-        "Hierarchies by team, topic, sensitivity",
-        "API + Chrome extension"
-      ],
-      audience: "Prompt ops teams, data leads",
-      cta: "Request Early Access"
+      title: "Custom AI & ML Development",
+      description: "Build bespoke AI and machine learning models designed specifically for your unique business challenges.",
+      challenges: ["Model accuracy", "Scalability", "Integration"],
+      solutions: ["Custom model training", "API development", "Performance optimization"],
+      icon: "🤖",
+      href: "/services#custom-ai-ml-development",
     },
     {
-      title: "AI Agents for Teams",
-      problem: "Repetitive workflows drain your team’s time.",
-      solution: "Custom AI agents that run tasks inside your stack.",
-      features: [
-        "Customer support triage",
-        "Meeting summaries + tasks",
-        "Data → Insight generators"
-      ],
-      audience: "Ops leads, Product teams, BI managers",
-      cta: "Build Your First Agent"
+      title: "Generative AI Solutions",
+      description: "Harness the power of generative AI to create content, automate processes, and enhance creativity.",
+      challenges: ["Content quality", "Ethical use", "Cost management"],
+      solutions: ["GPT integration", "Custom fine-tuning", "Workflow automation"],
+      icon: "✨",
+      href: "/services#generative-ai-solutions",
     },
     {
-      title: "Premium Prompts (Org-Specific)",
-      problem: "Teams waste time with bad prompting.",
-      solution: "Expert-crafted prompt packs by role and workflow.",
-      features: [
-        "Curated prompt libraries",
-        "Custom tuning service",
-        "Team onboarding support"
-      ],
-      audience: "Sales, analysts, marketers, content teams",
-      cta: "Explore the Prompt Library"
+      title: "Data Engineering & MLOps",
+      description: "Streamline your data pipelines and ML operations for reliable, scalable AI deployment.",
+      challenges: ["Data quality", "Pipeline efficiency", "Model deployment"],
+      solutions: ["Data pipeline design", "MLOps setup", "Monitoring & logging"],
+      icon: "⚙️",
+      href: "/services#data-engineering-mlops",
     },
     {
-      title: "Custom AI Solutions",
-      problem: "Off-the-shelf tools don’t fit your workflows.",
-      solution: "Done-for-you LLM integration, automation, and tooling.",
-      features: [
-        "Internal AI tools",
-        "Business intelligence automations",
-        "Custom plug-ins + workflows"
-      ],
-      audience: "CTOs, Heads of Ops, BI leads",
-      cta: "Book a Scoping Call"
-    }
+      title: "Computer Vision & NLP",
+      description: "Implement advanced computer vision and natural language processing solutions for intelligent automation.",
+      challenges: ["Accuracy optimization", "Real-time processing", "Multi-language support"],
+      solutions: ["Image recognition", "Text analysis", "Speech processing"],
+      icon: "👁️",
+      href: "/services#computer-vision-nlp",
+    },
+    {
+      title: "AI Workflow Automation",
+      description: "Automate complex workflows with AI-powered tools that learn and adapt to your processes.",
+      challenges: ["Process complexity", "Integration challenges", "User adoption"],
+      solutions: ["Workflow mapping", "AI agent development", "Change management"],
+      icon: "🔄",
+      href: "/services#ai-workflow-automation",
+    },
   ];
 
   return (
@@ -99,36 +88,88 @@ export default function BusinessPage() {
         </div>
       </section>
 
-      {/* Solutions Section */}
-      <section className="py-20 bg-[#EFEFEF]">
-        <div className="container mx-auto px-6 max-w-5xl">
-          <h2 className="text-3xl md:text-4xl font-bold text-center text-[#333333] mb-12">
-            Our AI Solutions
-          </h2>
+      {/* Services Grid */}
+      <motion.section
+        className="py-20 bg-[#EFEFEF]"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true }}
+      >
+        <div className="container mx-auto px-6">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
+              Our AI Services
+            </h2>
+            <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
+              Comprehensive AI services designed to transform your business operations and drive innovation.
+            </p>
+          </motion.div>
 
-          <div className="grid gap-8">
-            {solutions.map((item, index) => (
-              <div
-                key={index}
-                className="bg-white border border-[#E0E0E0] p-6 rounded-md shadow-sm"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {services.map((service, index) => (
+              <motion.div
+                key={service.title}
+                id={service.href.split('#')[1]} // Add id for anchor scrolling
+                className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-black"
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ y: -8, scale: 1.02 }}
               >
-                <h3 className="text-2xl font-semibold text-[#333333] mb-2">{item.title}</h3>
-                <p><strong>Problem:</strong> {item.problem}</p>
-                <p className="mt-2"><strong>Solution:</strong> {item.solution}</p>
-                <ul className="list-disc list-inside mt-3 space-y-1">
-                  {item.features.map((feature, i) => (
-                    <li key={i}>{feature}</li>
-                  ))}
-                </ul>
-                <p className="mt-3 text-sm text-[#666666]"><strong>For:</strong> {item.audience}</p>
-                <button className="mt-4 bg-[#0A0A0A] text-white px-4 py-2 rounded hover:bg-[#555555]">
-                  {item.cta}
-                </button>
-              </div>
+                <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-2xl text-white">{service.icon}</span>
+                </div>
+                <h3 className="text-2xl font-bold text-black mb-4">
+                  {service.title}
+                </h3>
+                <p className="text-black mb-6 leading-relaxed">
+                  {service.description}
+                </p>
+
+                <div className="mb-6">
+                  <h4 className="font-semibold text-black mb-2">Key Challenges:</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    {service.challenges.map((challenge, i) => (
+                      <li key={i} className="flex items-center">
+                        <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+                        {challenge}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mb-6">
+                  <h4 className="font-semibold text-black mb-2">AI Solutions:</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    {service.solutions.map((solution, i) => (
+                      <li key={i} className="flex items-center">
+                        <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                        {solution}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl border border-black"
+                >
+                  Learn More
+                  <span className="text-lg">→</span>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* Bottom CTA */}
       <section className="bg-[#FFFFFF] text-center py-16 border-t border-[#E0E0E0]">

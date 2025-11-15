@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { remoteConfig } from "@/lib/firebaseClient";
+import { remoteConfig, fetchAndActivate, getString } from "@/lib/firebaseClient";
 
 export default function HumanizeText() {
     const [input, setInput] = useState("");
@@ -10,10 +10,9 @@ export default function HumanizeText() {
     const [apiKey, setApiKey] = useState("");
 
     useEffect(() => {
-        remoteConfig
-            .fetchAndActivate()
+        fetchAndActivate(remoteConfig)
             .then(() => {
-                const key = remoteConfig.getString("GEMINI_API_KEY");
+                const key = getString(remoteConfig, "GEMINI_API_KEY");
                 setApiKey(key);
             })
             .catch(() => {

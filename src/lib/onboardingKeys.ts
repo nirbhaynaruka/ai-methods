@@ -9,15 +9,38 @@ export interface ClientData {
 }
 
 /**
+ * Retrieves all client slugs by calling Firebase Function.
+ * @returns Promise resolving to array of client slugs.
+ */
+export async function getAllClientSlugs(): Promise<string[]> {
+  try {
+    // For local development, use localhost; for production, use the deployed URL
+    const baseUrl = process.env.NODE_ENV === 'development'
+      ? 'http://127.0.0.1:5001/aimethods-e8521/us-central1'
+      : 'https://us-central1-aimethods-e8521.cloudfunctions.net';
+
+    const response = await fetch(`${baseUrl}/getAllClientSlugs`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const slugs = await response.json();
+    return slugs;
+  } catch (error) {
+    console.error('Error fetching client slugs:', error);
+    return [];
+  }
+}
+
+/**
  * Retrieves the client configuration based on the provided slug by calling Firebase Function.
- * @param slug The client slug from the URL (e.g., 'bityog').
+ * @param slug The client slug from the URL.
  * @returns Promise resolving to the client data or null if not found.
  */
 export async function getClientData(slug: string): Promise<ClientData | null> {
   try {
     // For local development, use localhost; for production, use the deployed URL
     const baseUrl = process.env.NODE_ENV === 'development'
-      ? 'http://localhost:5000/aimethods-e8521/us-central1'
+      ? 'http://127.0.0.1:5001/aimethods-e8521/us-central1'
       : 'https://us-central1-aimethods-e8521.cloudfunctions.net';
 
     const response = await fetch(`${baseUrl}/getClientOnboardingData?slug=${slug}`);

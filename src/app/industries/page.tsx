@@ -4,55 +4,63 @@ import { Footer } from "@/components/Footer";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-export default function SolutionsPage() {
-  const solutions = [
+export default function IndustriesPage() {
+  const industries = [
     {
-      title: "Churn Prediction",
-      description: "Predict customer churn with AI-driven analytics to retain high-value customers and optimize retention strategies.",
-      features: ["Machine learning models", "Real-time scoring", "Integration with CRM"],
-      icon: "📊",
+      title: "Healthcare & Pharma",
+      description: "Revolutionize patient care with AI-driven diagnostics, drug discovery, and personalized treatment plans.",
+      challenges: ["Data privacy compliance", "Regulatory adherence", "Patient outcome prediction"],
+      solutions: ["AI diagnostic assistants", "Drug interaction analysis", "Clinical trial optimization"],
+      icon: "🏥",
+      href: "/industries#healthcare-pharma",
     },
     {
-      title: "AI Customer Support Agent",
-      description: "Automate customer inquiries with intelligent chatbots that provide instant, accurate responses 24/7.",
-      features: ["Natural language processing", "Multi-channel support", "Seamless escalation"],
-      icon: "🤖",
+      title: "Finance & FinTech",
+      description: "Enhance risk assessment, fraud detection, and customer experience with intelligent financial AI.",
+      challenges: ["Fraud prevention", "Risk modeling", "Regulatory compliance"],
+      solutions: ["Real-time fraud detection", "Automated compliance", "Personalized financial advice"],
+      icon: "💰",
+      href: "/industries#finance-fintech",
     },
     {
-      title: "Lead Generation Scoring",
-      description: "Score and prioritize leads using AI to focus sales efforts on the most promising prospects.",
-      features: ["Predictive scoring", "Behavioral analysis", "CRM integration"],
-      icon: "🎯",
+      title: "Retail & E-Commerce",
+      description: "Optimize inventory, personalize shopping experiences, and predict consumer behavior.",
+      challenges: ["Inventory management", "Customer personalization", "Demand forecasting"],
+      solutions: ["AI-powered recommendations", "Dynamic pricing", "Supply chain optimization"],
+      icon: "🛒",
+      href: "/industries#retail-e-commerce",
     },
     {
-      title: "Computer Vision Quality Control",
-      description: "Automate quality inspection in manufacturing with computer vision to detect defects in real-time.",
-      features: ["Image recognition", "Defect detection", "Process optimization"],
-      icon: "👁️",
+      title: "Logistics & Supply Chain",
+      description: "Streamline operations with predictive analytics, route optimization, and automated warehousing.",
+      challenges: ["Route optimization", "Demand forecasting", "Inventory tracking"],
+      solutions: ["Predictive maintenance", "Automated scheduling", "Real-time tracking"],
+      icon: "🚚",
+      href: "/industries#logistics-supply-chain",
     },
     {
-      title: "Persona Generator Pro",
-      description: "Create detailed customer personas using AI to inform marketing and product development strategies.",
-      features: ["Data-driven insights", "Behavioral segmentation", "Customizable outputs"],
-      icon: "👤",
+      title: "Manufacturing & Automotive",
+      description: "Improve quality control, predictive maintenance, and production efficiency with industrial AI.",
+      challenges: ["Quality control", "Equipment maintenance", "Production optimization"],
+      solutions: ["Computer vision inspection", "Predictive maintenance", "Process automation"],
+      icon: "🏭",
+      href: "/industries#manufacturing-automotive",
     },
     {
-      title: "Internal AI Knowledge Assistant",
-      description: "Build an AI-powered knowledge base to help employees quickly find information and answers.",
-      features: ["Document indexing", "Intelligent search", "Continuous learning"],
-      icon: "📚",
+      title: "Human Resources & Recruitment",
+      description: "Transform talent acquisition and employee management with AI-powered HR solutions.",
+      challenges: ["Candidate screening", "Employee retention", "Skills gap analysis"],
+      solutions: ["AI resume screening", "Employee sentiment analysis", "Skills matching"],
+      icon: "👥",
+      href: "/industries#human-resources-recruitment",
     },
     {
-      title: "Compliance & Audit AI",
-      description: "Automate compliance checks and audits with AI to ensure regulatory adherence and reduce risk.",
-      features: ["Automated reporting", "Risk assessment", "Audit trail management"],
+      title: "Regulatory Compliance",
+      description: "Ensure compliance across industries with automated monitoring and reporting systems.",
+      challenges: ["Regulatory tracking", "Audit preparation", "Risk assessment"],
+      solutions: ["Automated compliance checks", "Real-time monitoring", "Audit trail management"],
       icon: "⚖️",
-    },
-    {
-      title: "Multi-Role AI Agent Library",
-      description: "Deploy versatile AI agents for various business functions, from data analysis to content creation.",
-      features: ["Modular design", "Role customization", "Scalable deployment"],
-      icon: "🛠️",
+      href: "/industries#regulatory-compliance",
     },
   ];
 
@@ -78,7 +86,7 @@ export default function SolutionsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            AI Solutions That Deliver
+            AI Across Industries
           </motion.h1>
 
           <motion.p
@@ -87,7 +95,7 @@ export default function SolutionsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            Pre-built AI solutions designed to solve real business problems. Deploy quickly, scale effortlessly, and see measurable results.
+            Tailored AI solutions for every sector. From healthcare to manufacturing, we deliver industry-specific AI that drives real results.
           </motion.p>
 
           <motion.div
@@ -97,10 +105,10 @@ export default function SolutionsPage() {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <Link
-              href="/contact"
+              href="/solutions"
               className="bg-black text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:bg-gray-800"
             >
-              Get Started
+              Explore Solutions
             </Link>
             <Link
               href="/services"
@@ -112,7 +120,7 @@ export default function SolutionsPage() {
         </div>
       </motion.section>
 
-      {/* Solutions Grid */}
+      {/* Industries Grid */}
       <motion.section
         className="py-20 bg-[#F8F8F8]"
         initial={{ opacity: 0 }}
@@ -129,18 +137,18 @@ export default function SolutionsPage() {
             viewport={{ once: true }}
           >
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
-              Our AI Solutions
+              Industry Solutions
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto">
-              Ready-to-deploy AI solutions that address common business challenges across industries.
+              Discover how AI Methods transforms operations across key industries with specialized solutions.
             </p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {solutions.map((solution, index) => (
+            {industries.map((industry, index) => (
               <motion.div
-                key={solution.title}
-                id={solution.title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')} // Add id for anchor scrolling
+                key={industry.title}
+                id={industry.href.split('#')[1]} // Add id for anchor scrolling
                 className="group bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-black"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -149,24 +157,41 @@ export default function SolutionsPage() {
                 whileHover={{ y: -8, scale: 1.02 }}
               >
                 <div className="w-16 h-16 bg-black rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                  <span className="text-2xl text-white">{solution.icon}</span>
+                  <span className="text-2xl text-white">{industry.icon}</span>
                 </div>
                 <h3 className="text-2xl font-bold text-black mb-4">
-                  {solution.title}
+                  {industry.title}
                 </h3>
                 <p className="text-black mb-6 leading-relaxed">
-                  {solution.description}
+                  {industry.description}
                 </p>
-                <ul className="text-sm text-gray-600 mb-6 space-y-1">
-                  {solution.features.map((feature, i) => (
-                    <li key={i} className="flex items-center">
-                      <span className="w-2 h-2 bg-black rounded-full mr-2"></span>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
+
+                <div className="mb-6">
+                  <h4 className="font-semibold text-black mb-2">Key Challenges:</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    {industry.challenges.map((challenge, i) => (
+                      <li key={i} className="flex items-center">
+                        <span className="w-2 h-2 bg-red-500 rounded-full mr-2"></span>
+                        {challenge}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mb-6">
+                  <h4 className="font-semibold text-black mb-2">AI Solutions:</h4>
+                  <ul className="text-sm text-gray-600 space-y-1">
+                    {industry.solutions.map((solution, i) => (
+                      <li key={i} className="flex items-center">
+                        <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
+                        {solution}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
                 <Link
-                  href="/contact"
+                  href={industry.href}
                   className="group inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-xl font-semibold hover:bg-white hover:text-black transition-all duration-300 shadow-lg hover:shadow-xl border border-black"
                 >
                   Learn More
@@ -188,10 +213,10 @@ export default function SolutionsPage() {
       >
         <div className="container mx-auto px-6 max-w-3xl">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Ready to Transform Your Business?
+            Ready to Transform Your Industry?
           </h2>
           <p className="text-lg text-gray-300 mb-8">
-            Let's discuss how our AI solutions can address your specific challenges and drive measurable results.
+            Let's discuss how our industry-specific AI solutions can address your unique challenges and drive innovation.
           </p>
           <Link
             href="/contact"

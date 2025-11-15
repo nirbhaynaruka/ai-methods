@@ -10,6 +10,9 @@
 const {setGlobalOptions} = require("firebase-functions");
 const {onRequest} = require("firebase-functions/https");
 const logger = require("firebase-functions/logger");
+const admin = require('firebase-admin');
+admin.initializeApp();
+const db = admin.firestore();
 
 // For cost control, you can set the maximum number of containers that can be
 // running at the same time. This helps mitigate the impact of unexpected
@@ -32,10 +35,10 @@ setGlobalOptions({ maxInstances: 10 });
 // });
 
 // Secure onboarding keys function
-exports.getClientOnboardingData = onRequest((request, response) => {
+exports.getAllClientSlugs = onRequest(async (request, response) => {
   // Enable CORS
   response.set('Access-Control-Allow-Origin', '*');
-  response.set('Access-Control-Allow-Methods', 'GET, POST');
+  response.set('Access-Control-Methods', 'GET, POST');
   response.set('Access-Control-Allow-Headers', 'Content-Type');
 
   if (request.method === 'OPTIONS') {
@@ -43,24 +46,28 @@ exports.getClientOnboardingData = onRequest((request, response) => {
     return;
   }
 
-  // Map client slugs to their access credentials and display name.
-  const clientOnboardingMap = {
-    // Example Client 1: BITYOG - Access Key: yoga4ai
-    'bityog': {
-      key: 'yoga4ai', // The password the client will use for access
-      name: 'BITYOG FITNESS',
-    },
-    // Example Client 2: A hypothetical client - Access Key: healthai2025
-    'medcorp': {
-      key: 'healthai2025',
-      name: 'MedCorp Diagnostics',
-    },
-    // Add new clients here as needed:
-    // 'newclient': {
-    //   key: 'securekey123',
-    //   name: 'New Client Enterprises',
-    // },
-  };
+  try {
+    logger.info('Fetching all client slugs');
+    const clientsSnapshot = await db.collection('clients').get();
+    const slugs = clientsSnapshot.docs.map(doc => doc.id);
+    logger.info(`Found slugs: ${JSON.stringify(slugs)}`);
+    response.json(slugs);
+  } catch (error) {
+    logger.error('Error fetching client slugs:', error);
+    response.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+exports.getClientOnboardingData = onRequest(async (request, response) => {
+  // Enable CORS
+  response.set('Access-Control-Allow-Origin', '*');
+  response.set('Access-Control-Methods', 'GET, POST');
+  response.set('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (request.method === 'OPTIONS') {
+    response.status(204).send('');
+    return;
+  }
 
   const slug = request.query.slug;
   if (!slug) {
@@ -68,14 +75,27 @@ exports.getClientOnboardingData = onRequest((request, response) => {
     return;
   }
 
-  const data = clientOnboardingMap[slug];
-  if (data) {
-    response.json({
-      name: data.name,
-      key: data.key,
-      slug: slug,
-    });
-  } else {
+  try {
+    logger.info(`Fetching client data for slug: ${slug}`);
+    const clientDoc = await db.collection('clients').doc(slug).get();
+    logger.info(`Client doc exists: ${clientDoc.exists}`);
+
+    if (clientDoc.exists) {
+      const clientData = clientDoc.data();
+      logger.info(`Client data: ${JSON.stringify(clientData)}`);
+      response.json({
+        name: clientData.name,
+        key: clientData.key,
+        slug: slug,
+      });
+      return;
+    }
+
+    // Client not found in Firestore
+    logger.info(`Client not found for slug: ${slug}`);
     response.status(404).json({ error: 'Client not found' });
+  } catch (error) {
+    logger.error('Error fetching client data:', error);
+    response.status(500).json({ error: 'Internal server error' });
   }
 });

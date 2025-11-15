@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { remoteConfig } from "@/lib/firebaseClient";
+import { remoteConfig, fetchAndActivate, getString } from "@/lib/firebaseClient";
 
 export default function AiAdvantage() {
   const [input, setInput] = useState("");
@@ -11,13 +11,12 @@ export default function AiAdvantage() {
   const [apiKey, setApiKey] = useState("");
 
   useEffect(() => {
-    remoteConfig
-      .fetchAndActivate()
+    fetchAndActivate(remoteConfig)
       .then(() => {
-        const key = remoteConfig.getString("GEMINI_API_KEY");
+        const key = getString(remoteConfig, "GEMINI_API_KEY");
         setApiKey(key);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.error("Remote config fetch failed", err);
       });
   }, []);
@@ -72,7 +71,7 @@ Suggestions:`;
       <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        className="w-full p-4 rounded-md border border-[#CCCCCC]  focus:border-transparent mb-4 resize-y min-h-[100px] text-[#333333] placeholder-[#CCCCCC]"
+        className="w-full p-4 rounded-md border mb-4 resize-y min-h-[100px] text-[#333333] placeholder-[#CCCCCC]"
         placeholder="e.g., I'm a marketing manager struggling with content ideas..."
       ></textarea>
       <button

@@ -7,7 +7,7 @@ import { FaGithub, FaLinkedin, FaXTwitter, FaEnvelope } from 'react-icons/fa6'
 export const Footer = () => {
   return (
     <footer className="bg-[#0A0A0A] text-[#CCCCCC] pt-8 pb-8 border-t border-[#666666]">
-      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-5 gap-8 md:gap-12">
+      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-6 gap-8 md:gap-12">
         {/* Brand + Socials */}
         <div className="md:col-span-2">
           <div className="flex items-center space-x-2 mb-4">
@@ -23,6 +23,7 @@ export const Footer = () => {
           <p className="text-sm leading-relaxed mb-4">
             We build AI that's enhanced by HI - Human Intelligence. Transform your business with cutting-edge artificial intelligence solutions.
           </p>
+
           <div className="flex space-x-4 text-white text-xl">
             <a href="https://github.com/aimethods" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
               <FaGithub />
@@ -44,8 +45,8 @@ export const Footer = () => {
           <h4 className="font-semibold text-white mb-3 text-lg">Business Solutions</h4>
           <ul className="space-y-2 text-sm">
             <li><Link href="/prompts" className="hover:text-white">Prompt Library</Link></li>
-            <li><Link href="/business#custom" className="hover:text-white">Custom AI</Link></li>
-            <li><Link href="/business#training" className="hover:text-white">AI Training</Link></li>
+            <li><Link href="/services#custom-ai-ml-development" className="hover:text-white">Custom AI</Link></li>
+            <li><Link href="/ai-training-consulting" className="hover:text-white">AI Training</Link></li>
           </ul>
         </div>
 
@@ -67,6 +68,13 @@ export const Footer = () => {
             <li><Link href="/privacy" className="hover:text-white">Privacy Policy</Link></li>
             <li><Link href="/terms" className="hover:text-white">Terms of Service</Link></li>
           </ul>
+
+        </div>
+        <div>
+          <h4 className="font-semibold text-white mb-3 text-lg">Contact Us</h4>
+          <p className="text-sm">
+            Email: <a href="mailto:hello@aimethods.co" className="hover:text-white">hello@aimethods.co</a> Phone: <a href="tel:+1234567890" className="hover:text-white">+1 (352) 328-6457</a>
+          </p>
         </div>
       </div>
 

@@ -2,7 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { remoteConfig } from "@/lib/firebaseClient";
+import { remoteConfig, fetchAndActivate, getString } from "@/lib/firebaseClient";
 
 export default function PremiumPromptGenerator() {
   const [input, setInput] = useState("");
@@ -11,13 +11,12 @@ export default function PremiumPromptGenerator() {
   const [apiKey, setApiKey] = useState("");
 
   useEffect(() => {
-    remoteConfig
-      .fetchAndActivate()
+    fetchAndActivate(remoteConfig)
       .then(() => {
-        const key = remoteConfig.getString("GEMINI_API_KEY");
+        const key = getString(remoteConfig, "GEMINI_API_KEY");
         setApiKey(key);
       })
-      .catch((err) => {
+      .catch((err: any) => {
         console.error("Remote config fetch failed", err);
       });
   }, []);
